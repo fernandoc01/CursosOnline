@@ -12,3 +12,17 @@ C:\ProyectoCore\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csproj.CoreCompile
 C:\ProyectoCore\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csproj.CopyComplete
 C:\ProyectoCore\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.dll
 C:\ProyectoCore\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.pdb
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Aplicacion.deps.json
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Aplicacion.dll
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Aplicacion.pdb
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Dominio.dll
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Persistencia.dll
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Dominio.pdb
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\bin\Debug\netcoreapp3.1\Persistencia.pdb
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csprojAssemblyReference.cache
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.AssemblyInfoInputs.cache
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.AssemblyInfo.cs
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csproj.CoreCompileInputs.cache
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csproj.CopyComplete
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.dll
+E:\FERNANDO\ProyectoCoreGit\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.pdb

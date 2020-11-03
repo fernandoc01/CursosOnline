@@ -5163,11 +5163,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ProyectoCore\\Persistencia\\Persistencia.csproj",
+      "projectUniqueName": "E:\\FERNANDO\\ProyectoCoreGit\\Persistencia\\Persistencia.csproj",
       "projectName": "Persistencia",
-      "projectPath": "C:\\ProyectoCore\\Persistencia\\Persistencia.csproj",
+      "projectPath": "E:\\FERNANDO\\ProyectoCoreGit\\Persistencia\\Persistencia.csproj",
       "packagesPath": "C:\\Users\\PC-01\\.nuget\\packages\\",
-      "outputPath": "C:\\ProyectoCore\\Persistencia\\obj\\",
+      "outputPath": "E:\\FERNANDO\\ProyectoCoreGit\\Persistencia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC-01\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5183,8 +5183,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\ProyectoCore\\Dominio\\Dominio.csproj": {
-              "projectPath": "C:\\ProyectoCore\\Dominio\\Dominio.csproj"
+            "E:\\FERNANDO\\ProyectoCoreGit\\Dominio\\Dominio.csproj": {
+              "projectPath": "E:\\FERNANDO\\ProyectoCoreGit\\Dominio\\Dominio.csproj"
             }
           }
         }

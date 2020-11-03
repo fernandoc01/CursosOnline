@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OhkZtFXgX3A73+pVz6dnG0qR8tWRoPoTirC7ryaYCaT59EcnwETRFiCBAXGZdO8RleucGNkqYjuF6DYHGHedQw==",
+  "dgSpecHash": "m1T0nVe0E1oL1qyOhvB9BWSw7zaFpHgy0VLbwxuCzbuF1iG7s5bfaE/SUwfuEhGobJ36xQchIlP0N4/0zGkRjw==",
   "success": true,
-  "projectFilePath": "C:\\ProyectoCore\\Seguridad\\Seguridad.csproj",
+  "projectFilePath": "E:\\FERNANDO\\ProyectoCoreGit\\Seguridad\\Seguridad.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC-01\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
     "C:\\Users\\PC-01\\.nuget\\packages\\fluentvalidation.aspnetcore\\8.6.2\\fluentvalidation.aspnetcore.8.6.2.nupkg.sha512",

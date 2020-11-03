@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "t79mB3gahrWtmBTh/0rvtKHc6VS0gGIqjqjyAxt1hA8poUWFJEm1y21gz3svJTq9kiXBPAFneyZLR252UCBD3g==",
+  "dgSpecHash": "QXJsUhgiC8fZUDg9aPyL1n+pJZpEiKw6+Gi5KhkicOM+iKgCcF0tPgpWrQgD6b1xoMgMlFkFW44c24seDeV4DQ==",
   "success": true,
-  "projectFilePath": "C:\\ProyectoCore\\Persistencia\\Persistencia.csproj",
+  "projectFilePath": "E:\\FERNANDO\\ProyectoCoreGit\\Persistencia\\Persistencia.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC-01\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.1\\microsoft.aspnetcore.cryptography.internal.3.1.1.nupkg.sha512",
     "C:\\Users\\PC-01\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.1\\microsoft.aspnetcore.cryptography.keyderivation.3.1.1.nupkg.sha512",

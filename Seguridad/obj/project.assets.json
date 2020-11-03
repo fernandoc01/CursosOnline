@@ -5541,11 +5541,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ProyectoCore\\Seguridad\\Seguridad.csproj",
+      "projectUniqueName": "E:\\FERNANDO\\ProyectoCoreGit\\Seguridad\\Seguridad.csproj",
       "projectName": "Seguridad",
-      "projectPath": "C:\\ProyectoCore\\Seguridad\\Seguridad.csproj",
+      "projectPath": "E:\\FERNANDO\\ProyectoCoreGit\\Seguridad\\Seguridad.csproj",
       "packagesPath": "C:\\Users\\PC-01\\.nuget\\packages\\",
-      "outputPath": "C:\\ProyectoCore\\Seguridad\\obj\\",
+      "outputPath": "E:\\FERNANDO\\ProyectoCoreGit\\Seguridad\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC-01\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5561,8 +5561,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\ProyectoCore\\Aplicacion\\Aplicacion.csproj": {
-              "projectPath": "C:\\ProyectoCore\\Aplicacion\\Aplicacion.csproj"
+            "E:\\FERNANDO\\ProyectoCoreGit\\Aplicacion\\Aplicacion.csproj": {
+              "projectPath": "E:\\FERNANDO\\ProyectoCoreGit\\Aplicacion\\Aplicacion.csproj"
             }
           }
         }
