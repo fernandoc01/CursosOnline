@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Persistencia;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace Aplicacion.Cursos
             public string descripcion{set;get;}
 
             public DateTime? FechaPublicacion{set;get;}
+
+            public List<Guid> ListaInstructor{set;get;}
 
         }
 
@@ -41,13 +44,30 @@ namespace Aplicacion.Cursos
             }
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
+                Guid _cursoId = Guid.NewGuid();
                 var curso = new Curso{
-                  titulo = request.titulo,
-                  descripcion = request.descripcion,
-                  FechaPublicacion = request.FechaPublicacion
+                    CursoId = _cursoId,
+                    titulo = request.titulo,
+                    descripcion = request.descripcion,
+                    FechaPublicacion = request.FechaPublicacion
                 };
 
                 _context.Curso.Add(curso);
+
+                if(request.ListaInstructor!=null){
+                    
+                    foreach(var id in request.ListaInstructor){
+                        var cursoInstructor = new CursoInstructor{
+                            CursoId = _cursoId,
+                            InstructorId = id
+                        };
+
+                        _context.CursoInstructor.Add(cursoInstructor);
+                        
+                    }
+                }
+
+
                 var valor = await _context.SaveChangesAsync();
                 if(valor>0){
                     return Unit.Value;

@@ -156,3 +156,5 @@ E:\FERNANDO\ProyectoCoreGit\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.csproj.CopyCom
 E:\FERNANDO\ProyectoCoreGit\WebAPI\obj\Debug\netcoreapp3.1\staticwebassets\WebAPI.StaticWebAssets.Manifest.cache
 E:\FERNANDO\ProyectoCoreGit\WebAPI\obj\Debug\netcoreapp3.1\staticwebassets\WebAPI.StaticWebAssets.xml
 E:\FERNANDO\ProyectoCoreGit\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.genruntimeconfig.cache
+E:\FERNANDO\ProyectoCoreGit\WebAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+E:\FERNANDO\ProyectoCoreGit\WebAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

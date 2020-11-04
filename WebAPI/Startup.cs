@@ -20,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using AutoMapper;
 
 namespace WebAPI
 {
@@ -54,7 +55,7 @@ namespace WebAPI
             IdentityBuilder.AddEntityFrameworkStores<CursosOnlineContext>();
             IdentityBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
-            services.AddScoped<IJwtGenerador, JwtGenerador>();
+            
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Tileria palabra secreta 050"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt => 
@@ -65,6 +66,10 @@ namespace WebAPI
                 ValidateIssuer = false
             };
             });
+
+            services.AddScoped<IJwtGenerador, JwtGenerador>();
+            services.AddScoped<IUsuarioSesion, UsuarioSesion>();
+            services.AddAutoMapper(typeof(Consulta.Manejador));
             
         }
 

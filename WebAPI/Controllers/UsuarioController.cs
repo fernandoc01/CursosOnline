@@ -3,6 +3,7 @@ using Aplicacion.Seguridad;
 using Dominio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Seguridad;
 
 namespace WebAPI.Controllers
 {
@@ -19,6 +20,11 @@ namespace WebAPI.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<UsuarioData>> Registrar(Registrar.Ejecuta parametros){
             return await Mediator.Send(parametros);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<UsuarioData>> DevolverUsuario(){
+            return await Mediator.Send(new UsuarioActual.Ejecuta());
         }
     }
 }
