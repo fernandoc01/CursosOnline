@@ -25,6 +25,12 @@ namespace Aplicacion.Cursos
 
             public List<Guid> ListaInstructor{set;get;}
 
+            public Guid PrecioId{set;get;}
+
+            public decimal? precioActual{set;get;}
+
+            public decimal? precioPromocion{set;get;}
+
         }
 
         public class Manejador : IRequestHandler<Ejecuta>
@@ -37,7 +43,7 @@ namespace Aplicacion.Cursos
 
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
-                var curso = await _context.Curso.FindAsync(request.CursoId);
+                var curso = _context.Curso.Find(request.CursoId);
                 
                 if(curso==null){
                     //throw new Exception("No se pudo encontrar el curso");
@@ -47,6 +53,15 @@ namespace Aplicacion.Cursos
                 curso.titulo = request.titulo ?? curso.titulo;
                 curso.descripcion = request.descripcion ?? curso.descripcion;
                 curso.FechaPublicacion = request.fechaPublicacion ?? curso.FechaPublicacion;
+
+                //Para actualizar el precio del curso
+
+                var precioEntidad = _context.Precio.Where(x => x.PrecioId == curso.PrecioId).FirstOrDefault();
+                
+                if(precioEntidad!=null){
+                    precioEntidad.precioActual = request.precioActual ?? precioEntidad.precioActual;
+                    precioEntidad.promocion = request.precioPromocion ?? precioEntidad.promocion;
+                }
 
                 if(request.ListaInstructor!=null){
                     if(request.ListaInstructor.Count>0){

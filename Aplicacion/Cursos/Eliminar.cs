@@ -29,6 +29,7 @@ namespace Aplicacion.Cursos
             {
 
                 var instructoresDB = _context.CursoInstructor.Where(x => x.CursoId == request.Id);
+
                 foreach(var instructor in instructoresDB){
                     _context.CursoInstructor.Remove(instructor);
                 }
@@ -38,6 +39,12 @@ namespace Aplicacion.Cursos
                 if(curso==null){
                     //throw new Exception("No se pudo encontrar el curso");
                     throw new ManejadorExcepcion(HttpStatusCode.NotFound, new{curso = "No se encontró el curso"});
+                }
+
+                var listaComentarios = _context.Comentario.Where(x => x.CursoId == request.Id);
+
+                foreach(var comen in listaComentarios){
+                    _context.Comentario.Remove(comen);
                 }
 
                 _context.Remove(curso);

@@ -75,7 +75,7 @@ namespace Aplicacion.Seguridad
                 if(resultado.Succeeded){
                     return new UsuarioData{
                         NombreCompleto = usuario.NombreCompleto,
-                        Token = _ijwtGenerador.CrearToken(usuario),
+                        Token = _ijwtGenerador.CrearToken(usuario, null),
                         UserName = usuario.UserName,
                         Email = usuario.Email
                     };

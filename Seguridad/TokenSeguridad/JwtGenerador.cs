@@ -11,11 +11,16 @@ namespace Seguridad
 {
     public class JwtGenerador : IJwtGenerador
     {
-        public string CrearToken(Usuario usuario)
+        public string CrearToken(Usuario usuario, List<string> roles)
         {
             var claims = new List<Claim>{
-                new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName)
-            };
+                new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName)};
+
+            if(roles!=null){
+                foreach(var rol in roles){
+                    claims.Add(new Claim(ClaimTypes.Role, rol));
+                }
+            }
 
             var key = new  SymmetricSecurityKey(Encoding.UTF8.GetBytes("Tileria palabra secreta 050"));
 

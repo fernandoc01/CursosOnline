@@ -32,7 +32,7 @@ namespace Aplicacion.Cursos
             {
                 var curso = await _context.Curso
                 .Include(x => x.ComentarioLista)
-                .Include(x => x.PrecioId)
+                .Include(x => x.Precio)
                 .Include(x => x.InstructoresLink)
                 .ThenInclude(y => y.Instructor)
                 .FirstOrDefaultAsync(a => a.CursoId == request.Id);

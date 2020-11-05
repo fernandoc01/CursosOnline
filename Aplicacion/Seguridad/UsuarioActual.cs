@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Aplicacion.Contratos;
@@ -29,10 +30,13 @@ namespace Aplicacion.Seguridad
             {
                 var usuario = await _userManager.FindByNameAsync(_iusuarioSesion.ObtenerUsuarioSesion());
 
+                var resultadoRoles = await _userManager.GetRolesAsync(usuario);
+                var listaRoles = new List<string>(resultadoRoles);
+
                 return new UsuarioData{
                     NombreCompleto = usuario.NombreCompleto,
                     UserName = usuario.UserName,
-                    Token = _ijwtGenerador.CrearToken(usuario),
+                    Token = _ijwtGenerador.CrearToken(usuario, listaRoles),
                     Imagen = null,
                     Email = usuario.Email
                 };

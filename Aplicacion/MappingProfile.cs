@@ -11,7 +11,7 @@ namespace Aplicacion
             CreateMap<Curso, CursoDto>()
             .ForMember(x => x.Instructores, y => y.MapFrom(z => z.InstructoresLink.Select(a => a.Instructor).ToList()))
             .ForMember(x => x.Comentarios, y => y.MapFrom(z => z.ComentarioLista))
-            .ForMember(x => x.Precio, y => y.MapFrom(y => y.Precio));
+            .ForMember(x => x.PrecioDto, y => y.MapFrom(y => y.Precio));
             CreateMap<CursoInstructor, CursoInstructorDto>();
             CreateMap<Instructor, InstructorDto>();
             CreateMap<Comentario, ComentarioDto>();

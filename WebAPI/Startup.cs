@@ -52,6 +52,10 @@ namespace WebAPI
 
             var Builder = services.AddIdentityCore<Usuario>();
             var IdentityBuilder = new IdentityBuilder(Builder.UserType, Builder.Services);
+
+            IdentityBuilder.AddRoles<IdentityRole>();
+            IdentityBuilder.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<Usuario, IdentityRole>>();
+
             IdentityBuilder.AddEntityFrameworkStores<CursosOnlineContext>();
             IdentityBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();

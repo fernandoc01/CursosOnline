@@ -5,14 +5,12 @@ namespace Aplicacion.Cursos
 {
     public class PrecioDto
     {
-        public Guid codprecio{set;get;}
+        public Guid PrecioId{set;get;}
 
         [Column(TypeName = "decimal(18,2)")]        
         public decimal precioActual{set;get;}
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal promocion{set;get;}
-
-        public Guid CursoId{set;get;}
     }
 }
