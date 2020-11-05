@@ -17,5 +17,9 @@ namespace Aplicacion.Cursos
         public byte[] FotoPortada{set;get;}
 
         public ICollection<InstructorDto> Instructores{set;get;}
+
+        public ICollection<ComentarioDto> Comentarios{set;get;}
+
+        public PrecioDto PrecioDto{set;get;}
     }
 }

@@ -15,12 +15,18 @@ namespace Persistencia
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<CursoInstructor>().HasKey(ci => new{ci.InstructorId, ci.CursoId});
+            modelBuilder.Entity<CursoInstructor>()
+            .HasKey(o => new {o.CursoId, o.InstructorId});
+
+        
+        /*modelBuilder.Entity<CursoInstructor>().HasKey(ci => new{ci.InstructorId, ci.CursoId});
         modelBuilder.Entity<Precio>()
         .HasOne(a => a.Curso)
-        .WithOne(b => b.precioPromocion)
-        .HasForeignKey<Curso>(b => b.CursoId);
+        .WithOne(b => b.Precio)
+        .HasForeignKey<Curso>(b => b.CursoId);*/
+
         }
+        
 
         public DbSet<Comentario> Comentario{set;get;}
 

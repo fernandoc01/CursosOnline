@@ -10,8 +10,8 @@ using Persistencia;
 namespace Persistencia.Migrations
 {
     [DbContext(typeof(CursosOnlineContext))]
-    [Migration("20201102122621_Uno")]
-    partial class Uno
+    [Migration("20201104201652_uno")]
+    partial class uno
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,18 +30,18 @@ namespace Persistencia.Migrations
                     b.Property<string>("Alumno")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CUrsoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ComentarioTexto")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CursoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Puntaje")
                         .HasColumnType("int");
 
                     b.HasKey("ComentarioId");
 
-                    b.HasIndex("CUrsoId");
+                    b.HasIndex("CursoId");
 
                     b.ToTable("Comentario");
                 });
@@ -49,6 +49,7 @@ namespace Persistencia.Migrations
             modelBuilder.Entity("Dominio.Curso", b =>
                 {
                     b.Property<Guid>("CursoId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("FechaPublicacion")
@@ -56,6 +57,9 @@ namespace Persistencia.Migrations
 
                     b.Property<byte[]>("FotoPortada")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("PrecioId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("descripcion")
                         .HasColumnType("nvarchar(max)");
@@ -65,20 +69,23 @@ namespace Persistencia.Migrations
 
                     b.HasKey("CursoId");
 
+                    b.HasIndex("PrecioId")
+                        .IsUnique();
+
                     b.ToTable("Curso");
                 });
 
             modelBuilder.Entity("Dominio.CursoInstructor", b =>
                 {
-                    b.Property<Guid>("InstructorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CursoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("InstructorId", "CursoId");
+                    b.Property<Guid>("InstructorId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("CursoId");
+                    b.HasKey("CursoId", "InstructorId");
+
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("CursoInstructor");
                 });
@@ -108,11 +115,8 @@ namespace Persistencia.Migrations
 
             modelBuilder.Entity("Dominio.Precio", b =>
                 {
-                    b.Property<Guid>("codprecio")
+                    b.Property<Guid>("PrecioId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("codcurso")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("precioActual")
@@ -121,7 +125,7 @@ namespace Persistencia.Migrations
                     b.Property<decimal>("promocion")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("codprecio");
+                    b.HasKey("PrecioId");
 
                     b.ToTable("Precio");
                 });
@@ -329,16 +333,16 @@ namespace Persistencia.Migrations
                 {
                     b.HasOne("Dominio.Curso", "Curso")
                         .WithMany("ComentarioLista")
-                        .HasForeignKey("CUrsoId")
+                        .HasForeignKey("CursoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.Curso", b =>
                 {
-                    b.HasOne("Dominio.Precio", "precioPromocion")
+                    b.HasOne("Dominio.Precio", "Precio")
                         .WithOne("Curso")
-                        .HasForeignKey("Dominio.Curso", "CursoId")
+                        .HasForeignKey("Dominio.Curso", "PrecioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

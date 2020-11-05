@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Aplicacion.ManejadorError;
+using Dominio;
 using MediatR;
 using Persistencia;
 
@@ -19,6 +22,8 @@ namespace Aplicacion.Cursos
             public string descripcion{set;get;}
 
             public DateTime? fechaPublicacion{set;get;}
+
+            public List<Guid> ListaInstructor{set;get;}
 
         }
 
@@ -42,6 +47,28 @@ namespace Aplicacion.Cursos
                 curso.titulo = request.titulo ?? curso.titulo;
                 curso.descripcion = request.descripcion ?? curso.descripcion;
                 curso.FechaPublicacion = request.fechaPublicacion ?? curso.FechaPublicacion;
+
+                if(request.ListaInstructor!=null){
+                    if(request.ListaInstructor.Count>0){
+                        var instructoresBD = _context.CursoInstructor.Where(x => x.CursoId == request.CursoId).ToList();
+                        
+                        //Para eliminar los instructores de este curso
+                        foreach(var id in instructoresBD){
+                            _context.CursoInstructor.Remove(id);
+                        }
+
+                        //Para agregar los instructores que esta ingresando el usuario
+                        foreach(var id in request.ListaInstructor){
+                            var nuevoInstructor = new CursoInstructor{
+                              CursoId = request.CursoId,
+                              InstructorId = id
+                            };
+
+                            _context.CursoInstructor.Add(nuevoInstructor);
+
+                        }
+                    }
+                }
 
                 var resultado = await _context.SaveChangesAsync();
 

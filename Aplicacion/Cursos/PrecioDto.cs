@@ -1,13 +1,11 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dominio
+namespace Aplicacion.Cursos
 {
-    public class Precio
+    public class PrecioDto
     {
-        [Key]
-        public Guid PrecioId{set;get;}
+        public Guid codprecio{set;get;}
 
         [Column(TypeName = "decimal(18,2)")]        
         public decimal precioActual{set;get;}
@@ -15,8 +13,6 @@ namespace Dominio
         [Column(TypeName = "decimal(18,2)")]
         public decimal promocion{set;get;}
 
-        //public Guid CursoId{set;get;}
-
-        public Curso Curso{set;get;}
+        public Guid CursoId{set;get;}
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistencia.Migrations
 {
-    public partial class IdentityCoreInicial : Migration
+    public partial class uno : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,14 +66,13 @@ namespace Persistencia.Migrations
                 name: "Precio",
                 columns: table => new
                 {
-                    codprecio = table.Column<Guid>(nullable: false),
+                    PrecioId = table.Column<Guid>(nullable: false),
                     precioActual = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    promocion = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    codcurso = table.Column<Guid>(nullable: false)
+                    promocion = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Precio", x => x.codprecio);
+                    table.PrimaryKey("PK_Precio", x => x.PrecioId);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,16 +189,17 @@ namespace Persistencia.Migrations
                     titulo = table.Column<string>(nullable: true),
                     descripcion = table.Column<string>(nullable: true),
                     FechaPublicacion = table.Column<DateTime>(nullable: true),
-                    FotoPortada = table.Column<byte[]>(nullable: true)
+                    FotoPortada = table.Column<byte[]>(nullable: true),
+                    PrecioId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Curso", x => x.CursoId);
                     table.ForeignKey(
-                        name: "FK_Curso_Precio_CursoId",
-                        column: x => x.CursoId,
+                        name: "FK_Curso_Precio_PrecioId",
+                        column: x => x.PrecioId,
                         principalTable: "Precio",
-                        principalColumn: "codprecio",
+                        principalColumn: "PrecioId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -211,14 +211,14 @@ namespace Persistencia.Migrations
                     Alumno = table.Column<string>(nullable: true),
                     Puntaje = table.Column<int>(nullable: false),
                     ComentarioTexto = table.Column<string>(nullable: true),
-                    CUrsoId = table.Column<Guid>(nullable: false)
+                    CursoId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comentario", x => x.ComentarioId);
                     table.ForeignKey(
-                        name: "FK_Comentario_Curso_CUrsoId",
-                        column: x => x.CUrsoId,
+                        name: "FK_Comentario_Curso_CursoId",
+                        column: x => x.CursoId,
                         principalTable: "Curso",
                         principalColumn: "CursoId",
                         onDelete: ReferentialAction.Cascade);
@@ -233,7 +233,7 @@ namespace Persistencia.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CursoInstructor", x => new { x.InstructorId, x.CursoId });
+                    table.PrimaryKey("PK_CursoInstructor", x => new { x.CursoId, x.InstructorId });
                     table.ForeignKey(
                         name: "FK_CursoInstructor_Curso_CursoId",
                         column: x => x.CursoId,
@@ -288,14 +288,20 @@ namespace Persistencia.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comentario_CUrsoId",
+                name: "IX_Comentario_CursoId",
                 table: "Comentario",
-                column: "CUrsoId");
+                column: "CursoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CursoInstructor_CursoId",
+                name: "IX_Curso_PrecioId",
+                table: "Curso",
+                column: "PrecioId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CursoInstructor_InstructorId",
                 table: "CursoInstructor",
-                column: "CursoId");
+                column: "InstructorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -17,7 +17,9 @@ namespace Dominio
 
         public byte[] FotoPortada{set;get;}
 
-        public Precio precioPromocion{set;get;}
+        public Guid PrecioId{set;get;}
+
+        public Precio Precio{set;get;}
 
         public ICollection<Comentario> ComentarioLista{set;get;}
 
