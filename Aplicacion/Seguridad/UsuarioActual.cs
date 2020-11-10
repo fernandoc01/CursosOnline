@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Aplicacion.Contratos;
+using Aplicacion.ManejadorError;
 using Dominio;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -29,6 +32,11 @@ namespace Aplicacion.Seguridad
             public async Task<UsuarioData> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
                 var usuario = await _userManager.FindByNameAsync(_iusuarioSesion.ObtenerUsuarioSesion());
+                //Console.WriteLine("usuario: "+usuario.Email);
+                
+                if(usuario==null){
+                    throw new ManejadorExcepcion(HttpStatusCode.NotFound, new {mensaje = "No existe usuario o token no es valido"});
+                }
 
                 var resultadoRoles = await _userManager.GetRolesAsync(usuario);
                 var listaRoles = new List<string>(resultadoRoles);

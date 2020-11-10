@@ -18,9 +18,7 @@ namespace Aplicacion.Seguridad
     public class UsuarioActualizar
     {
         public class Ejecuta : IRequest<UsuarioData>{
-        public string Nombre{set;get;}
-
-        public string Apellidos{set;get;}
+        public string NombreCompleto{set;get;}
 
         public string Email{set;get;}
 
@@ -33,8 +31,7 @@ namespace Aplicacion.Seguridad
         
         public class ValidaUsuarioActualizar : AbstractValidator<Ejecuta>{
         public ValidaUsuarioActualizar(){
-            RuleFor(x => x.Nombre).NotEmpty();
-            RuleFor(x => x.Apellidos).NotEmpty();
+            RuleFor(x => x.NombreCompleto).NotEmpty();
             RuleFor(x => x.Email).NotEmpty();
             RuleFor(x => x.Password).NotEmpty();
             RuleFor(x => x.UserName).NotEmpty();        
@@ -69,7 +66,7 @@ namespace Aplicacion.Seguridad
                     throw new ManejadorExcepcion(HttpStatusCode.InternalServerError, "Este email pertenece a otro usuario");
                 }
 
-                usuario.NombreCompleto = request.Nombre + ' ' + request.Apellidos;
+                usuario.NombreCompleto = request.NombreCompleto;
                 usuario.PasswordHash = _ipasswordHasher.HashPassword(usuario, request.Password);
                 usuario.Email = request.Email;
 

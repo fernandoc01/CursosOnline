@@ -44,7 +44,12 @@ namespace Aplicacion.Seguridad
                 var usuario = await _userManager.FindByEmailAsync(request.Email);
 
                 if(usuario==null){
-                   throw new ManejadorExcepcion(HttpStatusCode.Unauthorized);
+                   //throw new ManejadorExcepcion(HttpStatusCode.Unauthorized);
+                   usuario = await _userManager.FindByNameAsync(request.Email);
+                   
+                   if(usuario==null){
+                       throw new ManejadorExcepcion(HttpStatusCode.Unauthorized, new {mensaje = "El email/usuario ingresado no existe"});
+                   }
                 }
 
                 var resultado = await _singInManager.CheckPasswordSignInAsync(usuario, request.Password, false);
