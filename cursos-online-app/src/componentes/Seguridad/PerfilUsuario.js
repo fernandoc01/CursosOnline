@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import style from '../Tool/style'
-import {Container, Typography, Grid, TextField, Button} from '@material-ui/core';
-import { actualizarUsuario, obtenerUsuarioActual } from '../../actions/UsuarioAction';
+import {Container, Typography, Grid, TextField, Button, Avatar} from '@material-ui/core';
+import { actualizarUsuario } from '../../actions/UsuarioAction';
 import { useStateValue } from '../../Contexto/store';
-
+import reactFoto from '../../logo.svg';
+import {v4 as uuidv4} from 'uuid';
+import ImageUploader from 'react-images-upload';
+import { ObtenerDataImagen } from '../../actions/ImagenAction';
 
 const PerfilUsuario = () => {
 
@@ -14,7 +17,9 @@ const PerfilUsuario = () => {
         email : '',
         Password : '',
         ConfirmePassword : '',
-        userName: ''
+        userName: '',
+        imagenPerfil: null,
+        fotoUrl: ''
     })
 
     const guardarValoresEnMemoria = e => {
@@ -26,15 +31,22 @@ const PerfilUsuario = () => {
     }
 
     useEffect(() => {
-        obtenerUsuarioActual(dispatch).then(response => {
-            console.log("Data del usuario actual", response)
+        /*obtenerUsuarioActual(dispatch).then(response => {
             setUsuario(response.data)
-        })
-    }, [])
+        })*/
+        setUsuario(sesionUsuario.usuario)
+        setUsuario(anterior => ({
+            ...anterior,
+            Password: '',
+            ConfirmePassword: '',
+            imagenPerfil: null,
+            fotoUrl: sesionUsuario.usuario.imagenPerfil 
+        }))
+    }, [sesionUsuario.usuario])  
 
     const btnActualizarUsuario = e => {
         e.preventDefault()
-        actualizarUsuario(usuario).then(response => {
+        actualizarUsuario(usuario, dispatch).then(response => {
 
             if(response.status===200){
                 dispatch({
@@ -52,7 +64,8 @@ const PerfilUsuario = () => {
                     type : "OPEN_SNACKBAR",
                     openMensaje : {
                         open : true, 
-                        mensaje : "Hubo errores al intentar guardar en: " + Object.keys(response.data.errors)                    }
+                        mensaje : "Hubo errores al intentar guardar en: " + Object.keys(response.data.errors)                    
+                    }
                 })
             }
 
@@ -61,13 +74,33 @@ const PerfilUsuario = () => {
         })
     }
 
+    const fotoKey = uuidv4();
+
+    const subirFoto = imagenes => {
+        const foto = imagenes[0]
+        const fotoUrl = URL.createObjectURL(foto)
+
+        ObtenerDataImagen(foto).then(respuesta => {
+            console.log(respuesta)
+            setUsuario(anterior => ({
+                ...anterior,
+                imagenPerfil : respuesta, //archivo en formato file
+                fotoUrl : fotoUrl //archivo en formato url
+            }))
+
+        })
+
+        
+    }
+
     return(
         <Container component="main" maxWidth="md" justify="center">
             <div style={style.paper}>
+                <Avatar style={style.avatar} src={usuario.fotoUrl || reactFoto}/>
                 <Typography component="h1" variant="h5">
-                    Perfil de Usuario
+                    Perfil de {sesionUsuario.usuario.nombreCompleto}
                 </Typography>
-            </div>
+            
             <form style={style.form}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={12}>
@@ -85,6 +118,17 @@ const PerfilUsuario = () => {
                     <Grid item xs={12} md={6}>
                         <TextField name="ConfirmePassword" value={usuario.ConfirmePassword} onChange={guardarValoresEnMemoria} type="password" variant="outlined" fullWidth label="Confirmar Contraseña"/>
                     </Grid>
+                    <Grid item xs={12} md={12}>
+                        <ImageUploader
+                            withIcon = {false}
+                            key = {fotoKey}
+                            singleImage = {true}
+                            buttonText = "Seleccione una imagen de perfil"
+                            onChange = {subirFoto}
+                            imgExtension = {[".jpg", ".png", ".gif", ".jpeg"]}
+                            maxFileSize = {5242880}
+                        />
+                    </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={12}>
@@ -92,6 +136,7 @@ const PerfilUsuario = () => {
                     </Grid>
                 </Grid>
             </form>
+            </div>
         </Container>
     )
 }

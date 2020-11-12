@@ -38,5 +38,7 @@ namespace Persistencia
 
         public DbSet<Precio> Precio{set;get;}
 
+        public DbSet<Documento> Documento{set;get;}
+
     }
 }

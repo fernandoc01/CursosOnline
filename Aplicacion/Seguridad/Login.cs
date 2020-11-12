@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +10,8 @@ using Dominio;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Persistencia;
 
 namespace Aplicacion.Seguridad
 {
@@ -34,10 +38,12 @@ namespace Aplicacion.Seguridad
             private readonly UserManager<Usuario> _userManager;
             private readonly SignInManager<Usuario> _singInManager;
             private readonly IJwtGenerador _ijwtgenerador;
-            public Manejador(UserManager<Usuario> userManager, SignInManager<Usuario> singInManager, IJwtGenerador ijwtgenerador){
+            private readonly CursosOnlineContext _context;
+            public Manejador(UserManager<Usuario> userManager, SignInManager<Usuario> singInManager, IJwtGenerador ijwtgenerador, CursosOnlineContext context){
                 _userManager = userManager;
                 _singInManager = singInManager;
                 _ijwtgenerador = ijwtgenerador;
+                _context = context;
             }
             public async Task<UsuarioData> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
@@ -53,20 +59,41 @@ namespace Aplicacion.Seguridad
                 }
 
                 var resultado = await _singInManager.CheckPasswordSignInAsync(usuario, request.Password, false);
-                var resultadoRoles = await _userManager.GetRolesAsync(usuario);
-                var listaRoles = new List<string>(resultadoRoles);
-
+                
                 if(resultado.Succeeded){
+                    var resultadoRoles = await _userManager.GetRolesAsync(usuario);
+                var listaRoles = new List<string>(resultadoRoles);
+                
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid( usuario.Id )).FirstAsync();
+
+                if(imagenPerfil!=null){
+                    var imagenCliente = new ImagenGeneral {
+                        Data = Convert.ToBase64String( imagenPerfil.Contenido ),
+                        Extension = imagenPerfil.Extension,
+                        Nombre = imagenPerfil.Nombre
+                    };
+
                     return new UsuarioData{
                         NombreCompleto = usuario.NombreCompleto,
                         Token = _ijwtgenerador.CrearToken(usuario, listaRoles),
                         UserName = usuario.UserName,
                         Email = usuario.Email,
-                        Imagen = null
+                        ImagenPerfil = imagenCliente
+                    };
+
+                }else{
+                    return new UsuarioData{
+                        NombreCompleto = usuario.NombreCompleto,
+                        Token = _ijwtgenerador.CrearToken(usuario, listaRoles),
+                        UserName = usuario.UserName,
+                        Email = usuario.Email
                     };
                 }
-
-                throw new ManejadorExcepcion(HttpStatusCode.Unauthorized);
+                }else{
+                    throw new ManejadorExcepcion(HttpStatusCode.Unauthorized);
+                }
+                
+                
             }
         }
     }

@@ -5,5 +5,6 @@ namespace Dominio
     public class Usuario : IdentityUser
     {
         public string NombreCompleto{set;get;}
+        
     }
 }

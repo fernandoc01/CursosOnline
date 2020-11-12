@@ -26,6 +26,7 @@ namespace Aplicacion.Seguridad
         
         public string UserName{set;get;}
 
+        public ImagenGeneral ImagenPerfil{set;get;}
         
         }
         
@@ -66,6 +67,28 @@ namespace Aplicacion.Seguridad
                     throw new ManejadorExcepcion(HttpStatusCode.InternalServerError, "Este email pertenece a otro usuario");
                 }
 
+                if(request.ImagenPerfil!=null){
+                    Console.WriteLine("Le estoy enviando una imagen desde el front");
+                    var resultadoImagen = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid( usuario.Id )).FirstOrDefaultAsync();
+                    if(resultadoImagen==null){
+                    var imagen = new Documento{
+                        Contenido = System.Convert.FromBase64String( request.ImagenPerfil.Data ),
+                        Nombre = request.ImagenPerfil.Nombre,
+                        Extension = request.ImagenPerfil.Extension,
+                        ObjetoReferencia = new Guid( usuario.Id ),
+                        DocumentoId = Guid.NewGuid(),
+                        FechaCreacion = DateTime.UtcNow
+                    };
+                    Console.WriteLine("Añadir nueva imagen de perfil");
+                    _context.Documento.Add(imagen);
+                    }else{
+                        Console.WriteLine("Actualizar imagen de perfil");
+                        resultadoImagen.Contenido = System.Convert.FromBase64String( request.ImagenPerfil.Data );
+                        resultadoImagen.Nombre = request.ImagenPerfil.Nombre;
+                        resultadoImagen.Extension = request.ImagenPerfil.Extension;    
+                    }
+                }
+
                 usuario.NombreCompleto = request.NombreCompleto;
                 usuario.PasswordHash = _ipasswordHasher.HashPassword(usuario, request.Password);
                 usuario.Email = request.Email;
@@ -74,13 +97,24 @@ namespace Aplicacion.Seguridad
                 var listaRolesIList = await _userManager.GetRolesAsync(usuario);
                 var listaRoles = new List<string>(listaRolesIList);
 
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid( usuario.Id )).FirstOrDefaultAsync();
+
+                ImagenGeneral imagenGeneral = null;
+                if(imagenPerfil!=null){
+                    imagenGeneral = new ImagenGeneral{
+                        Data = Convert.ToBase64String( imagenPerfil.Contenido ),
+                        Nombre = imagenPerfil.Nombre,
+                        Extension = imagenPerfil.Extension
+                    };
+                }
 
                 if(updateUsuario.Succeeded){
                     return new UsuarioData{
                         NombreCompleto = usuario.NombreCompleto,
                         UserName = usuario.UserName,
                         Email = usuario.Email,
-                        Token = _ijwtGenerador.CrearToken(usuario, listaRoles)
+                        Token = _ijwtGenerador.CrearToken(usuario, listaRoles),
+                        ImagenPerfil = imagenGeneral
                     };
                 }
 

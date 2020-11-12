@@ -9,6 +9,7 @@ import {Grid, Snackbar} from '@material-ui/core';
 import AppNavBar from './componentes/Navegacion/AppNavBar';
 import {useStateValue} from './Contexto/store';
 import {obtenerUsuarioActual} from './actions/UsuarioAction';
+import RutaSegura from './componentes/Navegacion/RutaSegura'
 
 function App () {
   const [{sesionUsuario, openSnackBar}, dispatch] = useStateValue ();
@@ -18,7 +19,7 @@ function App () {
   useEffect (
     () => {
       if (!iniciaApp) {
-        obtenerUsuarioActual (dispatch)
+        obtenerUsuarioActual(dispatch)
           .then (response => {
             setIniciaApp (true);
           })
@@ -30,7 +31,7 @@ function App () {
     [iniciaApp]
   );
 
-  return (
+  return iniciaApp === false ? null : (
     <React.Fragment>
       <Snackbar anchorOrigin={{vertical:"bottom", horizontal:"center"}}
       open = {openSnackBar ? openSnackBar.open : false}
@@ -55,10 +56,10 @@ function App () {
           <AppNavBar />
           <Grid container>
             <Switch>
-              <Route exact path="auth/login" component={Login} />
-              <Route exact path="auth/registrar" component={RegistrarUsuario} />
-              <Route exact path="auth/perfil" component={PerfilUsuario} />
-              <Route exact path="/" component={PerfilUsuario} />
+              <Route exact path="/auth/login" component={Login} />
+              <Route exact path="/auth/registrar" component={RegistrarUsuario} />
+              <RutaSegura exact path="/auth/perfil" component={PerfilUsuario}/>
+              <RutaSegura exact path="/" component={PerfilUsuario} />
             </Switch>
           </Grid>
         </MuithemeProvider>
