@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { useStateValue } from '../../Contexto/store'
 
 function RutaSegura({component: Component, ...rest}){
-    const[{sesionUsuario}, dispatch] = useStateValue()
+    const[{sesionUsuario}] = useStateValue()
 
     return(
         <Route

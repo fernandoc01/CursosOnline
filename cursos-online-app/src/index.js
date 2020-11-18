@@ -8,12 +8,12 @@ import {StateProvider} from './Contexto/store';
 import {mainReducer} from './Contexto/reducers'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React>
     <StateProvider initialState={initialState} reducer={mainReducer}>
     <App />
     </StateProvider>
     
-  </React.StrictMode>,
+  </React>,
   document.getElementById('root')
 );
 
